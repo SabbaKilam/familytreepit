@@ -1,0 +1,66 @@
+{
+	"cameo1": {
+		"holderName": "testTarget11",
+		"pictureURL": "images/lucyliu.jpg",
+		"lastname": "Liu",
+		"firstname": "Lucy",
+		"phone": "",
+		"email": "xyz@xyz.com"
+	},
+	"cameo2": {
+		"holderName": "testTarget4",
+		"pictureURL": "images/AbbasHat.png",
+		"lastname": "Abdulmalik",
+		"firstname": "Abbas",
+		"phone": "610-357-2710",
+		"email": "abbas229@gmail.com"
+	},
+	"cameo3": {
+		"holderName": "testTarget1",
+		"pictureURL": "images/arlene.jpg",
+		"lastname": "Ramos",
+		"firstname": "Arlene",
+		"phone": "804-690-8184",
+		"email": "xyz@xyz.com"
+	},
+	"cameo4": {
+		"holderName": "testTarget6",
+		"pictureURL": "images/charlize.jpg",
+		"lastname": "Theron",
+		"firstname": "Charlize",
+		"phone": "",
+		"email": "xyz@xyz.com"
+	},
+	"cameo5": {
+		"holderName": "testTarget5",
+		"pictureURL": "images/girl.jpg",
+		"lastname": "Girl",
+		"firstname": "Unknown",
+		"phone": "484-832-6938",
+		"email": "LindaMel76@comcast.net"
+	},
+	"cameo6": {
+		"holderName": "testTarget16",
+		"pictureURL": "images/liam.jpg",
+		"lastname": "Neeson",
+		"firstname": "Liam",
+		"phone": "",
+		"email": "xyz@xyz.com"
+	},
+	"cameo7": {
+		"holderName": "testTarget8",
+		"pictureURL": "images/JackieChan.jpg",
+		"lastname": "Chan",
+		"firstname": "Jackie",
+		"phone": "",
+		"email": "xyz@xyz.com"
+	},
+	"cameo10": {
+		"holderName": "testTarget2",
+		"pictureURL": "images/jose.jpg",
+		"lastname": "Ramos",
+		"firstname": "Jose",
+		"phone": "650-520-4678",
+		"email": "jose.ramos@kin-keepers.com"
+	}
+}
