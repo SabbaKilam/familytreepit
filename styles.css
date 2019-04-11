@@ -259,7 +259,7 @@ body{
 
 @keyframes pulse {
   0%, 100% {
-    box-shadow: 0 0 0.05vw blue;
+    box-shadow: 0 0 0.5vw blue;
   }
   50% {
     box-shadow: 0 0 calc( 1.5vw + 0.125vh ) blue;
