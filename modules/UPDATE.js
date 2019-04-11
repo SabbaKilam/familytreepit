@@ -60,7 +60,7 @@ c.checkPassword = async () => {
 			if(r){
 				///////|loop calls |/////////////////
 				L.loopCall(c.recordCircleLocations, 300);
-				L.loopCall( c.makeAndShowCameos, 2000);
+				L.loopCall( c.makeAndShowCameos, 1000);
 				////////////////////////////////////				
 			}
 		})
