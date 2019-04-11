@@ -25,9 +25,6 @@ const c = {
 		
 		L.noPinchZoom();
 		
-		///////|loop calls |/////////////////
-		L.loopCall(c.recordCircleLocations, 300);
-		//L.loopCall(c.getChatInvitations, 1500);
 		////////////////////////////////////
 		const eventTypes = [
 			//`wheel`,    // see separate wheel event wiring below that prevents a warning

@@ -58,10 +58,9 @@ c.checkPassword = async () => {
 	c.getFamilyInfoServer()
 		.then(r=>{
 			if(r){
-				c.makeAndShowCameos();
 				///////|loop calls |/////////////////
 				L.loopCall(c.recordCircleLocations, 300);
-				//L.loopCall(c.getChatInvitations, 1500);
+				L.loopCall( c.makeAndShowCameos, 2000);
 				////////////////////////////////////				
 			}
 		})
@@ -531,23 +530,48 @@ c.getFamilyInfoServer = async () => {
 	return success;
 }
 //////////////////////////////////////////////////////
-c.makeAndShowCameos = () => {
+c.makeAndShowCameos = async () => {
 	let cameoIdArray = Object.keys(m.familyInfo);
-	console.log(cameoIdArray);
+	let onlineUsers = await c.getOnlineUsers();
+	//console.log(cameoIdArray);
 	cameoIdArray.forEach(cameoId => {
 		L.attachNewElement("div", cameoId, v);
 		v[cameoId].attribs(`class=cameo`)(`draggable=true`);
 		v[cameoId].css(s.cameoStyle);
 		let pictureURL = m.familyInfo[cameoId].pictureURL
 		v[cameoId].css( `background-image: url( ${pictureURL} )` );
-		let holderName = m.familyInfo[cameoId].holderName
-		v[holderName].appendChild( v[cameoId]);	
-	})
-	Object.keys(m.familyInfo).forEach(cameo=>{
-		if ( m.familyInfo[cameo].firstname.trim() === m.whoIsLoggedIn.trim() ) {
-			v[cameo].css(s.loggedInStyle);
-			v[cameo].innerHTML = "<span>Online</span>";
+		let holderName = m.familyInfo[cameoId].holderName;
+		
+		let oldOnline = null;
+		let oldId = null;
+		
+		if ( onlineUsers.includes( m.familyInfo[cameoId].firstname.trim() ) ) {
+			
+			v[cameoId]['data-online'] = true;
+			v[cameoId].css(s.loggedInStyle);
+			v[cameoId].innerHTML = "<span>Online</span>";
+		} else {
+			
+			v[cameoId]['data-online'] = false;
 		}
+		
+		let newId = v[cameoId]['id'];
+		let newOnline = v[cameoId]['data-online'];
+		
+		if( v[holderName].childNodes[0] ) {
+			
+			oldId = v[holderName].childNodes[0]['id'];
+			newId = v[cameoId]['id'];
+			oldOnline = v[holderName].childNodes[0]['data-online'];
+			newOnline = v[cameoId]['data-online'];
+		}
+		
+		if (  oldId !== newId || oldOnline !== newOnline ) {
+			
+			v[holderName].innerHTML = '';
+			v[holderName].appendChild( v[cameoId] );			
+		}
+
 	})
 }
 ////////////////////////
@@ -636,3 +660,4 @@ c.getOnlineUsers = async () => {
 	
 	return result;
 }
+//////////////

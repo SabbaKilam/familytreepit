@@ -11,7 +11,8 @@
 	
 	//get all custom family tree info to check credentials:
 	$userFamilyInfo = json_decode( file_get_contents( "../familyInfo/userFamilyInfo.json" ) );
-	$userCode = md5($_POST["loginName"]);
+	$loginName = $_POST["loginName"];
+	$userCode = md5($loginName);
 	$_SESSION["loginCredentials"] = $_POST["loginName"];
 	
 	//check login credentials
@@ -30,9 +31,9 @@
 				$onlineUsers = array();
 			}
 			
-			if( ! in_array( $userCode, $onlineUsers ) ) {
+			if( ! in_array( $loginName, $onlineUsers ) ) {
 				
-				array_push( $onlineUsers, $userCode );
+				array_push( $onlineUsers, $loginName );
 			}
 			
 			file_put_contents( "../familyInfo/onlineUsers.json", json_encode( $onlineUsers ) );

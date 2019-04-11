@@ -249,7 +249,7 @@ body{
 	position: absolute;
 	display: inline-block;
 	bottom: 0;
-	color: magenta;
+	color: blue;
 	text-shadow: 0 1px 0 white;
 	background: lightgray;
 	border-radius: 0.5rem;
@@ -259,10 +259,10 @@ body{
 
 @keyframes pulse {
   0%, 100% {
-    box-shadow: 0 0 5px magenta;
+    box-shadow: 0 0 0.05vw blue;
   }
   50% {
-    box-shadow: 0 0 30px magenta;
+    box-shadow: 0 0 calc( 1.5vw + 0.125vh ) blue;
   }
 }
 
