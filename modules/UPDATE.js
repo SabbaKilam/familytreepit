@@ -647,7 +647,7 @@ c.saveStandardFamilyInfo = async () => {
 	return result
 }
 //////////
-c.logout = async () => {
+c = async () => {
 	let response = await fetch(`php/logout.php`);
 	let result = await response.text()
 	
