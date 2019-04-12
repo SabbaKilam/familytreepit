@@ -25,7 +25,6 @@ const c = {
 		
 		L.noPinchZoom();
 		
-
 		////////////////////////////////////
 		const eventTypes = [
 			//`wheel`,    // see separate wheel event wiring below that prevents a warning
