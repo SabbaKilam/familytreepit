@@ -24,6 +24,7 @@ body{
   left: 50vw;
   transform: translate(-50%);
   background-image: url('./images/FamilyTreeTransparent.png');
+  
   /*background-color: transparent;*/
   background-repeat: no-repeat;
   background-position: top 50%;
@@ -172,9 +173,10 @@ body{
 	box-sizing: border-box;
 	position: absolute;
 	height: 15%;
-	min-height: 30px;
-	width: 70%;
+	min-height: 40px;
+	width: 99%;
 	min-width: 285px;
+	max-width: 585px;
 	border-radius: 1rem;
 	left: 50%;
 	top: 40%;

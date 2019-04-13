@@ -13,16 +13,17 @@ c.update = (eventObject)=>{
 		
 		handleReleased:		[m.released],
 		reloadPage:			[m.source === v.reloadButton, m.pressed],
-		restoreCircleColor: [m.type === `dragleave`],
+
 		startPopupTimer:	[m.source.includedInClass(`cameo`), m.pressed ],		
 		enlargeCameo:		[m.source.includedInClass(`cameo`), m.type ===`mouseover`],
 		restoreCameoSize:	[m.source.includedInClass(`cameo`), m.type ===`mouseout`],
-		handleDrop:			[m.source.includedInClass(`circle`), m.type===`drop`],
 		readyDragSource:	[m.source.includedInClass(`cameo`), m.type===`dragstart`],
-		readyDragTarget:	[m.source.includedInClass(`circle`), m.type === `dragover`],
-		
 		slideCameo:			[m.source.includedInClass(`cameo`), m.sliding ],
 		fingerDropCameo:	[m.source.includedInClass(`cameo`), m.type === `touchend` ],
+		
+		readyDragTarget:	[m.source.includedInClass(`circle`), m.type === `dragover`],
+		handleDrop:			[m.source.includedInClass(`circle`), m.type===`drop`],
+		restoreCircleColor: [m.type === `dragleave`],
 		
 		runSelectedTest:	[m.source === v.testSelector, m.type === `change`],
 		runRecentTest:		[m.source === v.btnLog, m.clicked],
@@ -35,7 +36,7 @@ c.update = (eventObject)=>{
 		
 		checkPassword:		[m.source === v.loginBox, m.type===`keyup`],
 
-		showInfo:			[1],		
+		showInfo:			[],		
 		/*============================================================
 		handlerName: [m.source === v.whatever, m.type === 'whatever'] 
 		============================================================*/    
@@ -54,22 +55,22 @@ c.checkPassword = async () => {
 	let response = await fetch( `php/checkPassword.php`, {method: `POST`, body: envelope} );
 	let result = await response.text();
 	m.loginStatus = result;
-	console.log(m.loginStatus);
+	console.log( m.loginStatus );
 	c.getFamilyInfoServer()
 		.then(r=>{
 			if(r){
 				///////|loop calls |/////////////////
-				L.loopCall(c.recordCircleLocations, 300);
-				L.loopCall( c.makeAndShowCameos, 1000);
+				L.loopCall( c.recordCircleLocations, 300 );
+				L.loopCall( c.makeAndShowCameos, 1000 );
 				////////////////////////////////////				
 			}
 		})
 	
-	if (m.loginStatus === `allow`){
+	if ( m.loginStatus === `allow` ){
 		v.passwordWall.css(`visibility: hidden; opacity: 0`);
 		v.whoIsLoggedInSpan.innerText = m.whoIsLoggedIn;
 	}
-	else if (m.loginStatus === `deny`) {
+	else if ( m.loginStatus === `deny`) {
 		v.passwordWall.css(`visibility: visible; opacity: 1`);
 		m.whoIsLoggedIn = `foobar`;		
 	}
@@ -105,7 +106,8 @@ c.fingerDropCameo = ()=>{
 	c.restoreCircleColor();
 	m.inSliding = false;
 	m.source.css(`opacity: 1`);
-	if(	  m.fingerDropTarget && m.fingerDropTarget !== m.cameoOrigin	){//don't drop at origin'
+	//don't drop at origin:
+	if ( m.fingerDropTarget && m.fingerDropTarget !== m.cameoOrigin	){
 		m.fingerDropTarget.appendChild(m.source);
 		//update familyInfo
 		m.familyInfo[m.id].holderName = m.fingerDropTarget.id;
@@ -116,7 +118,8 @@ c.fingerDropCameo = ()=>{
 		
 		m.cameoOrigin.innerHTML = ``;
 		m.fingerDropTarget = null;		
-	} else {
+	} 
+	else {
 		m.cameoOrigin.appendChild(m.source);
 	}
 };
@@ -142,8 +145,8 @@ c.reloadPage = ()=>{
 		//logout of session, then reload page
 		c.logout().then( loginStatus => {
 			m.loginStatus = loginStatus;
-			console.log(`m.loginStatus(from page reload): ${m.loginStatus}`);
-			window.location.reload(true);			
+			console.log( `m.loginStatus(from page reload): ${m.loginStatus}` );
+			window.location.reload( true );			
 		})
 	}	
 };
@@ -578,6 +581,7 @@ c.makeAndShowCameos = async () => {
 
 ///////| create login "key-value pair" for custom family trees |///////
 c.createCustomLogins = async (arrayOfNames) => {
+	
 	let md5Array = await c.stringsToMd5s(arrayOfNames);
 	let userFamilyInfo = {};
 	md5Array.forEach(codedName => {
@@ -590,12 +594,14 @@ c.createCustomLogins = async (arrayOfNames) => {
 }
 /////////
 c.stringsToMd5s = async (stringArray) => {
+	
 	let md5Promises = stringArray.map( name => c.getMD5(name) );
 	let md5Array = await Promise.all(md5Promises);
 	return md5Array;
 }
 /////////
 c.saveUserFamilyInfoServer = async (userFamilyInfo) => {
+	
 	let jsonUserFamilyInfo = JSON.stringify(userFamilyInfo);
 	let envelope = new FormData();
 	envelope.append(`jsonUserFamilyInfo`, jsonUserFamilyInfo);
@@ -606,6 +612,7 @@ c.saveUserFamilyInfoServer = async (userFamilyInfo) => {
 }
 ///////////////////////
 c.getMD5 = async (string) => {
+	
 	let envelope = new FormData();
 	envelope.append('string', string);
 	let response = await fetch( `php/getMD5.php`, {method: `POST`, body: envelope} );
@@ -629,6 +636,7 @@ c.confirmLogin = async () => {
 }
 //////////
 c.getChatInvitations = async () => {
+	
 	let cameo = m.loginNameToCameo[m.whoIsLoggedIn];
 	let envelope = new FormData();
 	envelope.append('cameo', cameo);
@@ -640,6 +648,7 @@ c.getChatInvitations = async () => {
 }
 ///////////
 c.saveStandardFamilyInfo = async () => {
+	
 	let envelope = new FormData();
 	envelope.append(`standardFamilyInfo`, JSON.stringify( m.standardFamilyInfo ) );
 	let response = await fetch(``, {method: `POST`, body: envelope});
@@ -648,6 +657,7 @@ c.saveStandardFamilyInfo = async () => {
 }
 //////////
 c.logout = async () => {
+	
 	let response = await fetch(`php/logout.php`);
 	let result = await response.text()
 	
