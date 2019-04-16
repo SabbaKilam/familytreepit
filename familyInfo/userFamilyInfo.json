@@ -235,7 +235,7 @@
             "online": false
         },
         "cameo10": {
-            "holderName": "testTarget10",
+            "holderName": "testTarget16",
             "pictureURL": "images\/jose.jpg",
             "lastname": "Ramos",
             "firstname": "Jose",
@@ -247,7 +247,7 @@
     },
     "d7b464b79ff2dc43fab5e1b6aba0417b": {
         "cameo1": {
-            "holderName": "testTarget1",
+            "holderName": "testTarget16",
             "pictureURL": "images\/lucyliu.jpg",
             "lastname": "Liu",
             "firstname": "Lucy",
@@ -287,7 +287,7 @@
             "online": false
         },
         "cameo5": {
-            "holderName": "testTarget5",
+            "holderName": "testTarget1",
             "pictureURL": "images\/girl.jpg",
             "lastname": "Melendez",
             "firstname": "Linda",

@@ -21,10 +21,10 @@
 		
 		if( $value["firstname"] == $firstname ) {
 			
-			$value["chatIn"] = true;
+			$familyInfo[$key]["chatInvitation"] = true;
 		}
 	}
 	
-	file_put_contents( json_encode( $userFamilyInfo, JSON_PRETTY_PRINT ) )
+	file_put_contents( "../familyInfo/userFamilyInfo.json", json_encode( $userFamilyInfo, JSON_PRETTY_PRINT ) )
 
 ?>

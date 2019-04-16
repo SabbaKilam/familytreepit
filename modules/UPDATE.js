@@ -7,6 +7,10 @@ c.update = (eventObject)=>{
 		/*============================================================*/		
 		/*==========| event handlers and their qualifiers|============*/
 		/*============================================================*/
+		//cameoVideoChatPrompt
+		showVideoChatWindow:[m.source.includedInClass(`cameoVideoChatPrompt`), m.pressed],
+		hideVideoChatWindow:[m.source === v.exitVideoChat, m.pressed],
+		
 		inviteToVideoChat:	[m.source.includedInClass(`commAnchor`), m.pressed ],
 		
 		handleResize:		[m.resized],
@@ -48,18 +52,41 @@ c.update = (eventObject)=>{
 	});
 };
 //////////////| handlers defined here |//////////////////////////////////////////////
+c.showVideoChatWindow = ()=> {
+	if (m.source.includedInClass(`cameoVideoChatPrompt`) ) {
+		
+		m.source.css(`visibility: hidden;`);
+		v.videoChatWindow.css(`
+			visibility: visible;
+			opacity: 1;
+		`);
+	}
+};
+/////////////////////////////
+c.hideVideoChatWindow = ()=> {
+	v.videoChatWindow.css(`
+		visibility: hidden;
+		opacity: 0;
+	`);	
+};
+
 /////////////////////////////
 c.handleUnload = ()=> {
 	
 	console.log("unloading");
 	c.logout();
-}
+};
 ////////
-c.inviteToVideoChat = ()=> {
+c.inviteToVideoChat = async ()=> {
 	let firstname = m.familyInfo[m.selectedCameo.id].firstname
 	let envelope = new FormData();
+	console.log( "inviting to video chat", firstname );
 	envelope.append("firstname", firstname);
-	fetch( `php/inviteToVideoChat.php`, {method: "POST", body: envelope} );
+	
+	let response = await fetch( `php/inviteToVideoChat.php`, {method: "POST", body: envelope} );
+	let result = await response.text();
+	
+	console.log(result);
 	
 } 
 //////
@@ -602,7 +629,6 @@ c.getFamilyInfoServer = async () => {
 	return success;
 }
 //////////////////////////////////////////////////////
-
 
 c.makeAndShowCameos = async () => {
 	
