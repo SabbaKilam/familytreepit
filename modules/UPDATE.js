@@ -7,7 +7,7 @@ c.update = (eventObject)=>{
 		/*============================================================*/		
 		/*==========| event handlers and their qualifiers|============*/
 		/*============================================================*/
-		inviteToVideoChat:	[m.source.includedInClass(`comm`), m.pressed ],
+		inviteToVideoChat:	[m.source.includedInClass(`commAnchor`), m.pressed ],
 		
 		handleResize:		[m.resized],
 		
@@ -55,8 +55,11 @@ c.handleUnload = ()=> {
 	c.logout();
 }
 ////////
-c.getChatInvitations = ()=> {
-	
+c.inviteToVideoChat = ()=> {
+	let firstname = m.familyInfo[m.selectedCameo.id].firstname
+	let envelope = new FormData();
+	envelope.append("firstname", firstname);
+	fetch( `php/inviteToVideoChat.php`, {method: "POST", body: envelope} );
 	
 } 
 //////
