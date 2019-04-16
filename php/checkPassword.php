@@ -23,7 +23,7 @@
 			$_SESSION["loginStatus"] = "allow";
 			$_SESSION["userCode"] = $userCode;
 			//restore to string value:
-			$_SESSION["familyInfo"] = json_encode( $value );
+			$_SESSION["familyInfo"] = json_encode( $value, JSON_PRETTY_PRINT );
 			$onlineUsers = json_decode( file_get_contents( "../familyInfo/onlineUsers.json" ) );
 			
 			if ( $onlineUsers == null ) {
@@ -36,7 +36,7 @@
 				array_push( $onlineUsers, $loginName );
 			}
 			
-			file_put_contents( "../familyInfo/onlineUsers.json", json_encode( $onlineUsers ) );
+			file_put_contents( "../familyInfo/onlineUsers.json", json_encode( $onlineUsers, JSON_PRETTY_PRINT ) );
 			break;
 		}
 	}

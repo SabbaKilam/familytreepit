@@ -7,7 +7,11 @@ c.update = (eventObject)=>{
 		/*============================================================*/		
 		/*==========| event handlers and their qualifiers|============*/
 		/*============================================================*/
+		inviteToVideoChat:	[m.source.includedInClass(`comm`), m.pressed ],
+		
 		handleResize:		[m.resized],
+		
+		handleUnload:		[m.type === `beforeunload`],
 		
 		hideAndClearVeil:	[m.source === v.exitVeil, m.released],
 		
@@ -36,7 +40,8 @@ c.update = (eventObject)=>{
 		
 		checkPassword:		[m.source === v.loginBox, m.type===`keyup`],
 
-		showInfo:			[],		
+		showInfo:			[1],
+		
 		/*============================================================
 		handlerName: [m.source === v.whatever, m.type === 'whatever'] 
 		============================================================*/    
@@ -44,6 +49,17 @@ c.update = (eventObject)=>{
 };
 //////////////| handlers defined here |//////////////////////////////////////////////
 /////////////////////////////
+c.handleUnload = ()=> {
+	
+	console.log("unloading");
+	c.logout();
+}
+////////
+c.getChatInvitations = ()=> {
+	
+	
+} 
+//////
 c.checkPassword = async () => {
 	let keyCode = m.eventObject.key || m.eventObject.code;
 	if (keyCode !== 13  && keyCode !== `Enter`) {return;}
@@ -60,8 +76,10 @@ c.checkPassword = async () => {
 		.then(r=>{
 			if(r){
 				///////|loop calls |/////////////////
-				L.loopCall( c.recordCircleLocations, 300 );
+				//This function is called when onresize is triggered.
+				//L.loopCall( c.recordCircleLocations, 300 );
 				L.loopCall( c.makeAndShowCameos, 1000 );
+				L.loopCall( c.getChatInvitations, 1000 );
 				////////////////////////////////////				
 			}
 		})
@@ -104,8 +122,11 @@ c.fingerDropCameo = ()=>{
 	if ( ! m.inSliding ){ return; }
 	
 	c.restoreCircleColor();
+	
 	m.inSliding = false;
+	m.source.css(`transition: all 0.5s ease`);	
 	m.source.css(`opacity: 1`);
+	
 	//don't drop at origin:
 	if ( m.fingerDropTarget && m.fingerDropTarget !== m.cameoOrigin	){
 		m.fingerDropTarget.appendChild(m.source);
@@ -137,7 +158,9 @@ c.hideAndClearVeil = () => {
 };
 /////////////////////
 c.handleReleased = ()=>{
-	c.restoreCameoSize();
+	if ( m.selectedCameo ) {
+		c.restoreCameoSize();
+	}
 };
 /////////////////////
 c.reloadPage = ()=>{
@@ -175,13 +198,23 @@ c.startPopupTimer = ()=>{
 };
 /////////////////////
 c.enlargeCameo = ()=>{
-	//clearTimeout(m.popupTimer);  	
+	
+	m.selectedCameo = m.source;
+	c.showName( true );	
 	m.source.css(`height: ${m.cameoLarge}vw; width: ${m.cameoLarge}vw`);
+	
+	/* show names
+	m.source.firstChild.style.opacity = "0.85";
+	m.source.firstChild.style.visibility = "visible";	
+	m.source.firstChild.style.fontSize = "1.75rem";
+	*/
 
 };
 /////////////////////
 c.restoreCameoSize = ()=>{
-	//clearTimeout(m.popupTimer);  
+	
+	//m.selectedCameo = m.source;
+	c.showName( false );	
 	document.querySelectorAll(`.cameo`).forEach( cameo=>{
 		cameo.css(s.cameoStyle);
 		cameo.css( `height: ${m.cameoSmall}vw; width:${m.cameoSmall}vw` );	
@@ -189,6 +222,13 @@ c.restoreCameoSize = ()=>{
 	document.querySelectorAll(`.circle`).forEach( circle=>{	
 		circle.css(`height: ${m.circleSize}vw; width:${m.circleSize}vw`);	
 	});
+	
+	/* hide names
+	m.selectedCameo.firstChild.style.opacity = "0";
+	m.selectedCameo.firstChild.style.visibility = "hidden";	
+	m.selectedCameo.firstChild.style.fontSize = "1rem";	
+	*/
+	
 	c.recordCircleLocations();
 };
 /////////////////////
@@ -245,6 +285,8 @@ c.slideCameo = ()=> {
 	
 	m.inSliding = true;
 	
+	m.source.css(`transition: all 0 ease`)
+	
 	console.clear();
 	if (m.eventObject.touches){
 		console.log(`sliding: ${m.eventObject.touches.length}`);
@@ -266,7 +308,7 @@ c.slideCameo = ()=> {
 				document.body.appendChild(m.source);
 			}
 			let fingerX = m.clientX - dy;
-			let fingerY = m.clientY  - dy
+			let fingerY = m.clientY - dy
 			m.source.css(`
 				position: absolute;
 				left: ${fingerX}px;
@@ -396,7 +438,6 @@ c.hideConsoleLog =()=>{
 };
 
 ///////////////////////////////////////
-
 c.setUploadImage = (m)=>{};
 c.showUploadImage = (v)=>{
 	if ( m.source.files && m.source.files[0] ){
@@ -409,6 +450,7 @@ c.clickFileButton = (m)=>{
 	v.fileElement.click();
 	
 };
+
 ////////////////////////////
 c.clearVeilInfo = ()=>{
   setTimeout( ()=>{
@@ -417,11 +459,9 @@ c.clearVeilInfo = ()=>{
 		v.cameoCommBox.css(`visibility: hidden; opacity: 0`)   		
 	 }
   }, 500 )
-  
 }
 
 ///////////////////////////////
-
 c.hideVeil = (callback)=>{
   m.veilShowing = false;
   c.clearVeilInfo();
@@ -434,6 +474,7 @@ c.hideVeil = (callback)=>{
 	`);
   if (typeof callback === `function`){ callback() }  
 };
+
 ///////////////////////////////
 c.showVeil = (callback)=>{ //callback usually fills the veil with information and controls
 	m.veilShowing = true;
@@ -444,6 +485,7 @@ c.showVeil = (callback)=>{ //callback usually fills the veil with information an
 	`);
   if (typeof callback === `function`){ callback() }
 };
+
 ///////////////////////////////
 c.fillVeilKinInfo = () => {
    L.attachNewElement('div', 'partialCameo', v);
@@ -473,11 +515,6 @@ c.showInfo = () => {
 	if ( !!v.info ){
 		v.info.innerText = info;		
 	}
-
-	/*
-	console.clear();
-	console.log(info);
-	*/
 };
 
 c.getBodyIdArray = function(){
@@ -486,7 +523,7 @@ c.getBodyIdArray = function(){
 
 ///////////////////////////////////////////////////
 c.recordCircleLocations = ()=>{
-	//console.clear();
+
 	document.querySelectorAll(`.circle`).forEach( circle => {
 		let x = circle.getBoundingClientRect().x;
 		let y = circle.getBoundingClientRect().y;
@@ -498,7 +535,36 @@ c.recordCircleLocations = ()=>{
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////| HELPER FUNCTIONS  |///////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
+c.showName = (boolean = true) => {
+	console.log( `selected cameo`, m.selectedCameo.id );
+	if( boolean  ){
+		//show name
+		m.selectedCameo.firstChild.style.opacity = "0.85";
+		m.selectedCameo.firstChild.style.visibility = "visible";	
+		m.selectedCameo.firstChild.style.fontSize = "1.75rem";		
+	}
+	else {
+		//hide name
+		m.selectedCameo.firstChild.style.opacity = "0";
+		m.selectedCameo.firstChild.style.visibility = "hidden";	
+		m.selectedCameo.firstChild.style.fontSize = "1rem";			
+	}
 
+}
+/////////////////////
+c.showVideoChatPrompt = (boolean = true) => {
+	console.log( `selected cameo`, m.selectedCameo.id );
+	if( boolean  ){
+		//show video chat prompt
+		
+	}
+	else {
+		//hide video chat prompt
+		
+	}
+
+}
+////////////////////
 c.saveFamilyInfoServer = async () => {
 	let sender = new XMLHttpRequest();
 	let info = JSON.stringify( m.familyInfo );
@@ -533,11 +599,15 @@ c.getFamilyInfoServer = async () => {
 	return success;
 }
 //////////////////////////////////////////////////////
+
+
 c.makeAndShowCameos = async () => {
+	
 	let cameoIdArray = Object.keys(m.familyInfo);
 	let onlineUsers = await c.getOnlineUsers();
-	//console.log(cameoIdArray);
+
 	cameoIdArray.forEach(cameoId => {
+		
 		L.attachNewElement("div", cameoId, v);
 		v[cameoId].attribs(`class=cameo`)(`draggable=true`);
 		v[cameoId].css(s.cameoStyle);
@@ -547,12 +617,32 @@ c.makeAndShowCameos = async () => {
 		
 		let oldOnline = null;
 		let oldId = null;
+		let firstname = m.familyInfo[cameoId].firstname.trim();
+		let chatInvitation = m.familyInfo[cameoId].chatInvitation;
 		
-		if ( onlineUsers.includes( m.familyInfo[cameoId].firstname.trim() ) ) {
+		
+		L.attachNewElement("div", `${cameoId}${firstname}`, v);
+		v[`${cameoId}${firstname}`].attribs(`class=cameoFirstname`)
+		v[`${cameoId}${firstname}`].innerText = firstname
+		v[cameoId].appendChild( v[`${cameoId}${firstname}`] )
+		
+		
+		L.attachNewElement("div", `${cameoId}videoChatPrompt`, v);
+		v[`${cameoId}videoChatPrompt`]
+			.attribs(`class=cameoVideoChatPrompt`)
+					(`title=Video Chat Request`)
+		v[cameoId].appendChild( v[`${cameoId}videoChatPrompt`] )
+		
+		if( chatInvitation ) {
+			
+			v[`${cameoId}videoChatPrompt`].css(`visibility: visible`);
+		}
+		
+		if ( onlineUsers.includes( firstname ) ) {
 			
 			v[cameoId]['data-online'] = true;
 			v[cameoId].css(s.loggedInStyle);
-			v[cameoId].innerHTML = "<span>Online</span>";
+			v[cameoId].innerHTML +="<span>Online</span>";
 		} else {
 			
 			v[cameoId]['data-online'] = false;
@@ -585,7 +675,7 @@ c.createCustomLogins = async (arrayOfNames) => {
 	let md5Array = await c.stringsToMd5s(arrayOfNames);
 	let userFamilyInfo = {};
 	md5Array.forEach(codedName => {
-		userFamilyInfo[codedName] = m.familyInfo;
+		userFamilyInfo[codedName] = m.standardFamilyInfo;
 	});
 	let result = await c.saveUserFamilyInfoServer(userFamilyInfo);
 	
@@ -641,8 +731,8 @@ c.getChatInvitations = async () => {
 	let envelope = new FormData();
 	envelope.append('cameo', cameo);
 	let response = await fetch(`php/getChatInvitations.php`, {method: `POST`, body: envelope});
-	let result = await response.text()
-	m.chatInvitationsArray = result.split(`\n`);
+	let result = await response.json()
+	m.chatInvitationsArray = result;
 	console.log(m.chatInvitationsArray);
 	return(m.chatInvitationsArray);
 }
@@ -651,7 +741,7 @@ c.saveStandardFamilyInfo = async () => {
 	
 	let envelope = new FormData();
 	envelope.append(`standardFamilyInfo`, JSON.stringify( m.standardFamilyInfo ) );
-	let response = await fetch(``, {method: `POST`, body: envelope});
+	let response = await fetch(`php/saveStandardFamilyInfo.php`, {method: `POST`, body: envelope});
 	let result = await response.text()
 	return result
 }
@@ -668,7 +758,7 @@ c.logout = async () => {
 c.getOnlineUsers = async () => {
 	let response = await fetch(`php/getOnlineUsers.php`);
 	let result = await response.json();
-	console.log(typeof result, result);
+	//console.log(typeof result, result);
 	
 	return result;
 }

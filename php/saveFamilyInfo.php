@@ -9,7 +9,7 @@
 		$userFamilyInfo = json_decode( file_get_contents( "../familyInfo/userFamilyInfo.json" ), true );
 		$userFamilyInfo[$_SESSION["userCode"]] = json_decode( $familyInfoJson, true );
 		
-		$userFamilyInfoJson = json_encode( $userFamilyInfo );
+		$userFamilyInfoJson = json_encode( $userFamilyInfo, JSON_PRETTY_PRINT );
 		file_put_contents( "../familyInfo/"  . "userFamilyInfo.json", $userFamilyInfoJson );		
 	}
 	

@@ -145,14 +145,15 @@ body{
 	background-repeat: no-repeat ;	
 	z-index: 5;
 	cursor: pointer;
-	transition: opacity 0.125s ease;
+	transition: all 0.4s ease;
 	opacity: 0.45;
 	visibility: visible;	
 }
 
 #exitVeil:hover{
 	height: 8.5vw;
-	width: 8.5vw;	
+	width: 8.5vw;
+	opacity: 0.65;
 }
 
 #passwordWall {
@@ -258,6 +259,60 @@ body{
 	padding: 0.125rem;
 	font-size: calc( 1.5vw + 0.125vh );	
 }
+
+.cameoFirstname {
+	font-size: 1rem;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.5s ease;
+	color: blue;
+	text-shadow: 0 1px 0 white;
+	background: lightgray;	
+	border-radius: 0.75rem;
+	z-index: 2;
+	
+}
+
+.cameoVideoChatPrompt {
+
+	position: absolute;
+	animation: fadeVideo 3s infinite;	
+	left: calc( -1vw - 0.05vh );
+	top:  calc( -1vw - 0.05vh );
+	/*
+	visibility: visible;
+	opacity: 0.75;
+	*/
+	visibility: hidden;
+	opacity: 0;
+	
+	transition: all 0.5s ease;
+	text-shadow: 0 1px 0 white;
+	background: lightgray;
+	
+	height: calc( 4.5vw + 0.325vh );	
+	width:  calc( 4.5vw + 0.325vh );
+	
+	border-radius: calc( 1vw + 0.1vh );
+	
+	background-image: url(images/VideoChat.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	background-color: transparent;
+
+	z-index: 1;	
+}
+
+@keyframes fadeVideo {
+  0%, 100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+
 
 @keyframes pulse {
   0%, 100% {

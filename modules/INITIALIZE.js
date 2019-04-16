@@ -29,7 +29,8 @@ const c = {
 		const eventTypes = [
 			//`wheel`,    // see separate wheel event wiring below that prevents a warning
 			//`click`,    // we have our own boolean click test (m.clicked)
-			//`dblclick`, // we have our own boolean double click test (m.dblPressed)  
+			//`dblclick`, // we have our own boolean double click test (m.dblPressed)
+			`beforeunload`,
 			`change`,
 			`input`,
 			`keydown`,  
@@ -97,7 +98,7 @@ const c = {
 	m.loggedIn = false;
 	m.loginStatus = `deny`;
 	m.whoIsLoggedIn = `foobar`;
-	m.loginNames = [`Arlene`, `Jose`, `Linda`, `Abbas`, ];
+	m.loginNames = [`Arlene`, `Jose`, `Linda`, `Abbas`];
 	
 	m.DELAY_VEIL = 500;
 	m.DELAY_SLIDE = m.DELAY_VEIL / 2 ;
@@ -106,7 +107,9 @@ const c = {
 	m.inSliding = false;
 	m.fingerDropTarget = null;
 	m.cameoOrigin = null;
-	m.cameoSize = null;	
+	m.cameoSize = null;
+	
+	///////////////////////////////
 	m.circleLocations = {
 		  testTarget1: [0,0],
 		  testTarget2: [0,0],
@@ -129,13 +132,15 @@ const c = {
 		  testTarget19: [0,0],
 		  testTarget20: [0,0],		  
 	};
+	
+	/////////////////////////////
 	m.standardFamilyInfo = {
 		cameo1: {
 			holderName: "testTarget1",
 			pictureURL: "images/lucyliu.jpg",
-			lastname: "",
-			firstname: "",
-			phone: "",
+			lastname: "Liu",
+			firstname: "Lucy",
+			phone: "610-555-1212",
 			email: "xyz@xyz.com",
 			chatInvitation: false,
 			online: false,
@@ -143,19 +148,19 @@ const c = {
 		cameo2: {
 			holderName: "testTarget2",
 			pictureURL: "images/AbbasHat.png",
-			lastname: "",
-			firstname: "",
-			phone: "",
-			email: "xyz@xyz.com",
+			lastname: "Abdulmalik",
+			firstname: "Abbas",
+			phone: "610-357-2710",
+			email: "abbas229@gmail.com",
 			chatInvitation: false,
 			online: false,			
 		},
 		cameo3: {
 			holderName: "testTarget3",
 			pictureURL: "images/arlene.jpg",
-			lastname: "",
-			firstname: "",
-			phone: "",
+			lastname: "Ramos",
+			firstname: "Arlene",
+			phone: "804-690-8184",
 			email: "xyz@xyz.com",
 			chatInvitation: false,
 			online: false,			
@@ -163,9 +168,9 @@ const c = {
 		cameo4: {
 			holderName: "testTarget4",
 			pictureURL: "images/charlize.jpg",
-			lastname: "",
-			firstname: "",
-			phone: "",
+			lastname: "Theron",
+			firstname: "Charlize",
+			phone: "610-555-1212",
 			email: "xyz@xyz.com",
 			chatInvitation: false,
 			online: false,			
@@ -173,19 +178,19 @@ const c = {
 		cameo5: {
 			holderName: "testTarget5",
 			pictureURL: "images/girl.jpg",
-			lastname: "",
-			firstname: "",
-			phone: "",
-			email: "xyz@xyz.com",
+			lastname: "Melendez",
+			firstname: "Linda",
+			phone: "484-832-6938",
+			email: "LindaMel76@comcast.net",
 			chatInvitation: false,
 			online: false,			
 		},
 		cameo6: {
 			holderName: "testTarget6",
 			pictureURL: "images/liam.jpg",
-			lastname: "",
-			firstname: "",
-			phone: "",
+			lastname: "Neeson",
+			firstname: "Liam",
+			phone: "610-555-1212",
 			email: "xyz@xyz.com",
 			chatInvitation: false,
 			online: false,			
@@ -193,9 +198,9 @@ const c = {
 		cameo7: {
 			holderName: "testTarget7",
 			pictureURL: "images/JackieChan.jpg",
-			lastname: "",
-			firstname: "",
-			phone: "",
+			lastname: "Chan",
+			firstname: "Jackie",
+			phone: "215-555-1212",
 			email: "xyz@xyz.com",
 			chatInvitation: false,
 			online: false,			
@@ -203,15 +208,28 @@ const c = {
 		cameo10: {
 			holderName: "testTarget10",
 			pictureURL: "images/jose.jpg",
-			lastname: "",
-			firstname: "",
-			phone: "",
-			email: "xyz@xyz.com",
+			lastname: "Ramos",
+			firstname: "Jose",
+			phone: "650-520-4678",
+			email: "Jose.Ramos@kin-.com",
 			chatInvitation: false,
 			online: false,			
 		},		
 	};
-	m.loginNameToCame
+	
+	////////////////////////
+	m.loginNameToCameo = {
+		Lucy:		"cameo1",
+		Abbas:		"cameo2",
+		Arlene: 	"cameo3",
+		Charlize:	"cameo4",
+		Linda:		"cameo5",
+		Liam:		"cameo6",
+		Jackie: 	"cameo7",
+		Jose:		"cameo10",
+	};
+	
+	////////////////////////
 	m.circleSize = 8;	
 	m.circleColor = `rgb(19, 210, 142)`;
 	m.cameoSmall = 10.5;
@@ -230,7 +248,6 @@ const c = {
 	m.timeOfModelSave = 0;
 	m.timeBetweenModelSaves = 0;
 	m.modelSaveDelay = 10000; //10 seconds between saving model	
-	
 
 	//////////////////////////////////////////////////
 	///////////| define all meta events  |////////////

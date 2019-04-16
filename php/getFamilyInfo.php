@@ -1,6 +1,7 @@
 <?php
 
 	session_start();
+
 	
 	$familyInfo = file_get_contents( "../familyInfo/familyInfo.json" );
 	
@@ -10,4 +11,7 @@
 	}
 	
 	exit( $familyInfo );
+
+
+		
 ?>
