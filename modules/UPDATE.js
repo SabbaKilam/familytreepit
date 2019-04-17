@@ -53,9 +53,12 @@ c.update = (eventObject)=>{
 };
 //////////////| handlers defined here |//////////////////////////////////////////////
 c.showVideoChatWindow = ()=> {
-	if (m.source.includedInClass(`cameoVideoChatPrompt`) ) {
+	if (m.source.includedInClass(`cameoVideoChatPrompt`) ) { 
 		
-		m.source.css(`visibility: hidden;`);
+		console.log( Object.keys(m.source))
+		
+		m.source.style.visibility = `hidden`;
+		//m.source.css(`visibility: hidden`);// css reported as not a method (??)
 		v.videoChatWindow.css(`
 			visibility: visible;
 			opacity: 1;
@@ -660,6 +663,8 @@ c.makeAndShowCameos = async () => {
 		v[`${cameoId}videoChatPrompt`]
 			.attribs(`class=cameoVideoChatPrompt`)
 					(`title=Video Chat Request`)
+
+							
 		v[cameoId].appendChild( v[`${cameoId}videoChatPrompt`] )
 		
 		if( chatInvitation ) {

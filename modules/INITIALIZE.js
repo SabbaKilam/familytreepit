@@ -504,8 +504,8 @@ const c = {
 	  })( m.eventObject);
 	
 	  m.MIN_TIME = 25;	//milliseconds
-	  m.MAX_TIME = 500;	//milliseconds
 	
+	  m.MAX_TIME = 500;	//milliseconds
 	  m.clicked = m.timeBetweenEvents <= m.MAX_TIME &&
 	              m.timeBetweenEvents >= m.MIN_TIME &&
 	              m.released;

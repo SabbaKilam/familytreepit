@@ -140,6 +140,6 @@ const s = {
    loggedInStyle: `
     	animation: pulse 3s infinite;
    `,
-}
+};
 
-export default s
+export default s;
