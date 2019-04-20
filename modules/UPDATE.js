@@ -7,6 +7,9 @@ c.update = (eventObject)=>{
 		/*============================================================*/		
 		/*==========| event handlers and their qualifiers|============*/
 		/*============================================================*/
+		
+		handleUnload:		[m.type === `beforeunload` || m.type === `unload`],		
+		
 		//cameoVideoChatPrompt
 		showVideoChatWindow:[m.source.includedInClass(`cameoVideoChatPrompt`), m.pressed],
 		hideVideoChatWindow:[m.source === v.exitVideoChat, m.pressed],
@@ -14,8 +17,6 @@ c.update = (eventObject)=>{
 		inviteToVideoChat:	[m.source.includedInClass(`commAnchor`), m.pressed ],
 		
 		handleResize:		[m.resized],
-		
-		handleUnload:		[m.type === `beforeunload`],
 		
 		hideAndClearVeil:	[m.source === v.exitVeil, m.released],
 		
@@ -55,7 +56,7 @@ c.update = (eventObject)=>{
 c.showVideoChatWindow = ()=> {
 	if (m.source.includedInClass(`cameoVideoChatPrompt`) ) { 
 		
-		console.log( Object.keys(m.source))
+		console.log(m.id);
 		
 		m.source.style.visibility = `hidden`;
 		//m.source.css(`visibility: hidden`);// css reported as not a method (??)

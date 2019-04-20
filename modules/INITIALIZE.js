@@ -30,6 +30,7 @@ const c = {
 			//`wheel`,    // see separate wheel event wiring below that prevents a warning
 			//`click`,    // we have our own boolean click test (m.clicked)
 			//`dblclick`, // we have our own boolean double click test (m.dblPressed)
+			`unload`,
 			`beforeunload`,
 			`change`,
 			`input`,

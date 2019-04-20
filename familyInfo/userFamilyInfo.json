@@ -21,7 +21,7 @@
             "online": false
         },
         "cameo3": {
-            "holderName": "testTarget16",
+            "holderName": "testTarget7",
             "pictureURL": "images\/arlene.jpg",
             "lastname": "Ramos",
             "firstname": "Arlene",
@@ -61,7 +61,7 @@
             "online": false
         },
         "cameo7": {
-            "holderName": "testTarget7",
+            "holderName": "testTarget9",
             "pictureURL": "images\/JackieChan.jpg",
             "lastname": "Chan",
             "firstname": "Jackie",
@@ -71,7 +71,7 @@
             "online": false
         },
         "cameo10": {
-            "holderName": "testTarget10",
+            "holderName": "testTarget8",
             "pictureURL": "images\/jose.jpg",
             "lastname": "Ramos",
             "firstname": "Jose",
@@ -99,11 +99,11 @@
             "firstname": "Abbas",
             "phone": "610-357-2710",
             "email": "abbas229@gmail.com",
-            "chatInvitation": false,
+            "chatInvitation": true,
             "online": false
         },
         "cameo3": {
-            "holderName": "testTarget10",
+            "holderName": "testTarget8",
             "pictureURL": "images\/arlene.jpg",
             "lastname": "Ramos",
             "firstname": "Arlene",
@@ -165,7 +165,7 @@
     },
     "96c11895e7dc02ef601772a3f77587ac": {
         "cameo1": {
-            "holderName": "testTarget1",
+            "holderName": "testTarget10",
             "pictureURL": "images\/lucyliu.jpg",
             "lastname": "Liu",
             "firstname": "Lucy",
@@ -175,7 +175,7 @@
             "online": false
         },
         "cameo2": {
-            "holderName": "testTarget2",
+            "holderName": "testTarget1",
             "pictureURL": "images\/AbbasHat.png",
             "lastname": "Abdulmalik",
             "firstname": "Abbas",
@@ -205,7 +205,7 @@
             "online": false
         },
         "cameo5": {
-            "holderName": "testTarget5",
+            "holderName": "testTarget2",
             "pictureURL": "images\/girl.jpg",
             "lastname": "Melendez",
             "firstname": "Linda",
@@ -247,7 +247,7 @@
     },
     "d7b464b79ff2dc43fab5e1b6aba0417b": {
         "cameo1": {
-            "holderName": "testTarget16",
+            "holderName": "testTarget19",
             "pictureURL": "images\/lucyliu.jpg",
             "lastname": "Liu",
             "firstname": "Lucy",
@@ -267,7 +267,7 @@
             "online": false
         },
         "cameo3": {
-            "holderName": "testTarget11",
+            "holderName": "testTarget16",
             "pictureURL": "images\/arlene.jpg",
             "lastname": "Ramos",
             "firstname": "Arlene",
@@ -297,7 +297,7 @@
             "online": false
         },
         "cameo6": {
-            "holderName": "testTarget6",
+            "holderName": "testTarget13",
             "pictureURL": "images\/liam.jpg",
             "lastname": "Neeson",
             "firstname": "Liam",
@@ -307,7 +307,7 @@
             "online": false
         },
         "cameo7": {
-            "holderName": "testTarget7",
+            "holderName": "testTarget14",
             "pictureURL": "images\/JackieChan.jpg",
             "lastname": "Chan",
             "firstname": "Jackie",
@@ -317,7 +317,7 @@
             "online": false
         },
         "cameo10": {
-            "holderName": "testTarget14",
+            "holderName": "testTarget5",
             "pictureURL": "images\/jose.jpg",
             "lastname": "Ramos",
             "firstname": "Jose",
